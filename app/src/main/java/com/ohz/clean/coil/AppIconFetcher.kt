@@ -9,7 +9,7 @@ import coil.fetch.Fetcher
 import coil.request.Options
 import eu.darken.sdmse.common.debug.logging.log
 import eu.darken.sdmse.common.funnel.IPCFunnel
-import eu.darken.sdmse.common.io.R
+import com.ohz.clean.common.io.R
 import eu.darken.sdmse.common.pkgs.Pkg
 import eu.darken.sdmse.common.pkgs.getIcon2
 import javax.inject.Inject

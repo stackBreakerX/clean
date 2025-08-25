@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.pm.PackageInfo
 import android.content.pm.SharedLibraryInfo
 import androidx.appcompat.content.res.AppCompatResources
+import com.ohz.clean.common.io.R
 import eu.darken.sdmse.common.ca.CaDrawable
 import eu.darken.sdmse.common.ca.CaString
 import eu.darken.sdmse.common.ca.caDrawable
@@ -11,7 +12,6 @@ import eu.darken.sdmse.common.ca.caString
 import eu.darken.sdmse.common.ca.cache
 import eu.darken.sdmse.common.files.APath
 import eu.darken.sdmse.common.hasApiLevel
-import eu.darken.sdmse.common.io.R
 import eu.darken.sdmse.common.pkgs.Pkg
 import eu.darken.sdmse.common.pkgs.features.PermissionDetails
 import eu.darken.sdmse.common.pkgs.features.SourceAvailable

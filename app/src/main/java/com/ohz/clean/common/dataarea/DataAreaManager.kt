@@ -1,6 +1,5 @@
-package eu.darken.sdmse.common.areas
+package com.ohz.clean.common.dataarea
 
-import com.ohz.clean.common.dataarea.DataArea
 import eu.darken.sdmse.common.areas.modules.DataAreaFactory
 import eu.darken.sdmse.common.coroutine.AppScope
 import eu.darken.sdmse.common.debug.logging.Logging.Priority.WARN
@@ -19,6 +18,7 @@ import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.collections.toSet
 
 
 @Singleton

@@ -148,7 +148,7 @@ class VolumeInfoX internal constructor(private val mVolumeInfoObject: Any) {
         try {
             volumeInfoClass.getMethod("getDescription")
         } catch (e: Exception) {
-            // https://github.com/d4rken/sdmaid-public/issues/1678
+            // issues/1678
             log(TAG, WARN) { "Reflection failed: volumeInfoClass.getMethod(\"getDescription\"): ${e.asLog()}" }
             null
         }
@@ -165,7 +165,7 @@ class VolumeInfoX internal constructor(private val mVolumeInfoObject: Any) {
         try {
             volumeInfoClass.getMethod("getPathForUser", Int::class.javaPrimitiveType)
         } catch (e: Exception) {
-            // https://github.com/d4rken/sdmaid-public/issues/1678
+            // issues/1678
             log(TAG, WARN) {
                 "Reflection failed:  volumeInfoClass.getMethod(\"getPathForUser\", Int::class.javaPrimitiveType): ${e.asLog()}"
             }

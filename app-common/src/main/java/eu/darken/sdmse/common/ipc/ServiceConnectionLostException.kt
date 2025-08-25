@@ -1,7 +1,7 @@
 package eu.darken.sdmse.common.ipc
 
 import android.os.DeadObjectException
-import eu.darken.sdmse.common.R
+import com.ohz.clean.common.R
 import eu.darken.sdmse.common.ca.caString
 import eu.darken.sdmse.common.ca.toCaString
 import eu.darken.sdmse.common.error.HasLocalizedError

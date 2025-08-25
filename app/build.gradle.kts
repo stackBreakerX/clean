@@ -31,7 +31,6 @@ android {
         versionCode = projectConfig.version.code.toInt()
         versionName = projectConfig.version.name
 
-        testInstrumentationRunner = "eu.darken.sdmse.HiltTestRunner"
 
         buildConfigField("String", "PACKAGENAME", "\"${projectConfig.packageName}\"")
 //        buildConfigField("String", "GITSHA", "\"${commitHashProvider.get()}\"")
@@ -47,32 +46,30 @@ android {
         }
     }
 
-    signingConfigs {
-        val basePath = File(System.getProperty("user.home"), ".appconfig/${projectConfig.packageName}")
-        create("releaseFoss") {
-            setupCredentials(File(basePath, "signing-foss.properties"))
-        }
-        create("releaseGplay") {
-            setupCredentials(File(basePath, "signing-gplay-upload.properties"))
-        }
-    }
+//    signingConfigs {
+//        val basePath = File(System.getProperty("user.home"), ".appconfig/${projectConfig.packageName}")
+//        create("releaseFoss") {
+//            setupCredentials(File(basePath, "signing-foss.properties"))
+//        }
+//        create("releaseGplay") {
+//            setupCredentials(File(basePath, "signing-gplay-upload.properties"))
+//        }
+//    }
 
-    flavorDimensions.add("version")
-    productFlavors {
-        create("foss") {
-            dimension = "version"
-            signingConfig = signingConfigs["releaseFoss"]
-            // The info block is encrypted and can only be read by google
-            dependenciesInfo {
-                includeInApk = false
-                includeInBundle = false
-            }
-        }
-        create("gplay") {
-            dimension = "version"
-            signingConfig = signingConfigs["releaseGplay"]
-        }
-    }
+//    flavorDimensions.add("version")
+//    productFlavors {
+//        create("foss") {
+//            dimension = "version"
+//            // The info block is encrypted and can only be read by google
+//            dependenciesInfo {
+//                includeInApk = false
+//                includeInBundle = false
+//            }
+//        }
+//        create("gplay") {
+//            dimension = "version"
+//        }
+//    }
 
     buildTypes {
         val customProguardRules = fileTree(File(projectDir, "proguard")) {
@@ -81,19 +78,9 @@ android {
         debug {
             isMinifyEnabled = false
             isShrinkResources = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
-            proguardFiles(*customProguardRules.toList().toTypedArray())
-            proguardFiles("proguard-rules-debug.pro")
-        }
-        create("beta") {
-            lint {
-                abortOnError = true
-                fatal.add("StopShip")
-            }
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
-            proguardFiles(*customProguardRules.toList().toTypedArray())
+//            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
+//            proguardFiles(*customProguardRules.toList().toTypedArray())
+//            proguardFiles("proguard-rules-debug.pro")
         }
         release {
             lint {
@@ -111,7 +98,7 @@ android {
         val variantOutputImpl = this as com.android.build.gradle.internal.api.BaseVariantOutputImpl
         val variantName: String = variantOutputImpl.name
 
-        if (listOf("release", "beta").any { variantName.lowercase().contains(it) }) {
+        if (listOf("release", "debug").any { variantName.lowercase().contains(it) }) {
             val outputFileName = projectConfig.packageName +
                     "-v${defaultConfig.versionName}-${defaultConfig.versionCode}" +
                     "-${variantName.uppercase()}.apk"
@@ -151,10 +138,10 @@ android {
         }
     }
 
-    androidResources {
-        @Suppress("UnstableApiUsage")
-        generateLocaleConfig = true
-    }
+//    androidResources {
+//        @Suppress("UnstableApiUsage")
+//        generateLocaleConfig = true
+//    }
 
     packaging {
         resources {
@@ -167,12 +154,12 @@ setupKotlinOptions()
 
 afterEvaluate {
     tasks {
-        named("bundleGplayBeta") {
-            dependsOn("lintVitalGplayBeta")
-        }
-        named("bundleGplayRelease") {
-            dependsOn("lintVitalGplayRelease")
-        }
+//        named("bundleGplayBeta") {
+//            dependsOn("lintVitalGplayBeta")
+//        }
+//        named("bundleGplayRelease") {
+//            dependsOn("lintVitalGplayRelease")
+//        }
     }
 }
 
@@ -197,13 +184,13 @@ dependencies {
     addIO()
     addRetrofit()
 
-    "gplayImplementation"("com.android.billingclient:billing:8.0.0")
-    "gplayImplementation"("com.android.billingclient:billing-ktx:8.0.0")
+//    "gplayImplementation"("com.android.billingclient:billing:8.0.0")
+//    "gplayImplementation"("com.android.billingclient:billing-ktx:8.0.0")
 
     //noinspection GradleDependency See https://issuetracker.google.com/issues/374691245
-    "gplayImplementation"("com.google.android.play:review:2.0.1")
+//    "gplayImplementation"("com.google.android.play:review:2.0.1")
     //noinspection GradleDependency See https://issuetracker.google.com/issues/374691245
-    "gplayImplementation"("com.google.android.play:review-ktx:2.0.1")
+//    "gplayImplementation"("com.google.android.play:review-ktx:2.0.1")
 
     addAndroidCore()
     addAndroidUI()

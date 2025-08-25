@@ -3,7 +3,7 @@ package eu.darken.sdmse.common.error
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
-import eu.darken.sdmse.common.R
+import com.ohz.clean.common.R
 import eu.darken.sdmse.common.ca.CaString
 import eu.darken.sdmse.common.ca.caString
 

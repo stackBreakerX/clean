@@ -4,11 +4,11 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.Keep
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
+import com.ohz.clean.common.io.R
 import eu.darken.sdmse.common.ca.CaDrawable
 import eu.darken.sdmse.common.ca.CaString
 import eu.darken.sdmse.common.ca.caDrawable
 import eu.darken.sdmse.common.ca.caString
-import eu.darken.sdmse.common.io.R
 import eu.darken.sdmse.common.pkgs.features.AppStore
 
 @Keep

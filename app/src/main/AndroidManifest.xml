@@ -41,7 +41,9 @@
         android:theme="@style/Theme.CleanMaster">
         <activity
             android:name="com.ohz.clean.ui.MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/AppThemeSplash"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -2,12 +2,12 @@ package eu.darken.sdmse.common.pkgs.container
 
 import android.content.pm.PackageInfo
 import androidx.appcompat.content.res.AppCompatResources
+import com.ohz.clean.common.io.R
 import eu.darken.sdmse.common.ca.CaDrawable
 import eu.darken.sdmse.common.ca.CaString
 import eu.darken.sdmse.common.ca.caDrawable
 import eu.darken.sdmse.common.ca.caString
 import eu.darken.sdmse.common.ca.cache
-import eu.darken.sdmse.common.io.R
 import eu.darken.sdmse.common.pkgs.features.ApiDetails
 import eu.darken.sdmse.common.pkgs.features.InstallDetails
 import eu.darken.sdmse.common.pkgs.features.Installed

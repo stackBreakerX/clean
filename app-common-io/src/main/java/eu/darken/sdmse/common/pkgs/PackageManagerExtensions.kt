@@ -101,7 +101,7 @@ fun PackageManager.getSharedLibraries2(flags: Int): List<SharedLibraryInfo> = tr
     getSharedLibraries(flags)
 } catch (e: Exception) {
     log("PackageManager", ERROR) { "Failed getSharedLibraries($flags)" }
-    // https://github.com/d4rken/sdmaid-public/issues/3100
+    // issues/3100
     if (hasApiLevel(29)) throw e else emptyList()
 }
 

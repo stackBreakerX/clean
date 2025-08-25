@@ -9,11 +9,11 @@ import android.graphics.drawable.Drawable
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import com.ohz.clean.common.io.R
 import eu.darken.sdmse.common.debug.logging.Logging.Priority.WARN
 import eu.darken.sdmse.common.debug.logging.asLog
 import eu.darken.sdmse.common.debug.logging.log
 import eu.darken.sdmse.common.hasApiLevel
-import eu.darken.sdmse.common.io.R
 import eu.darken.sdmse.common.pkgs.AKnownPkg
 import eu.darken.sdmse.common.pkgs.Pkg
 import eu.darken.sdmse.common.pkgs.container.toStub
@@ -35,7 +35,7 @@ data class InstallerInfo(
 
     fun getLabel(context: Context): String {
         if (installer == null) {
-            return context.getString(eu.darken.sdmse.common.R.string.general_na_label)
+            return context.getString(com.ohz.clean.common.R.string.general_na_label)
         }
 
         return installingPkg?.label?.get(context) ?: installer!!.id.name

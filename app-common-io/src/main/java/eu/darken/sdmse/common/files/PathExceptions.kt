@@ -1,6 +1,7 @@
 package eu.darken.sdmse.common.files
 
 import androidx.annotation.Keep
+import com.ohz.clean.common.R
 import eu.darken.sdmse.common.ca.caString
 import eu.darken.sdmse.common.ca.toCaString
 import eu.darken.sdmse.common.error.HasLocalizedError
@@ -30,7 +31,7 @@ open class ReadException @JvmOverloads constructor(
             sb.append(
                 path?.let {
                     cx.getString(
-                        eu.darken.sdmse.common.R.string.general_error_cant_access_msg,
+                        R.string.general_error_cant_access_msg,
                         it.userReadablePath.get(cx)
                     )
                 } ?: message
@@ -60,7 +61,7 @@ class WriteException @JvmOverloads constructor(
             sb.append(
                 path?.let {
                     cx.getString(
-                        eu.darken.sdmse.common.R.string.general_error_cant_access_msg,
+                        R.string.general_error_cant_access_msg,
                         it.userReadablePath.get(cx)
                     )
                 } ?: message

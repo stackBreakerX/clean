@@ -1,6 +1,7 @@
 package eu.darken.sdmse.common
 
 import androidx.annotation.StringRes
+import com.ohz.clean.common.R
 import eu.darken.sdmse.common.ca.toCaString
 import eu.darken.sdmse.common.error.HasLocalizedError
 import eu.darken.sdmse.common.error.LocalizedError

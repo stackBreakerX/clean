@@ -105,7 +105,7 @@ class AccessChecker @Inject constructor() {
 //                AccessType.ROOT
 //            }
 //            // Primary public storage is writeable on all Android versions via Java with storage permissions, except Android/data|obb
-//            // !ApiHelper.hasAndroid11() due to https://github.com/d4rken/sdmaid-public/issues/5179
+//            // !ApiHelper.hasAndroid11() due to issues/5179
 //            !ApiHelper.hasAndroid11() && location.isPublic && storage.hasFlags(Storage.Flag.PRIMARY) -> {
 //                AccessType.NORMAL
 //            }
@@ -172,7 +172,7 @@ class AccessChecker @Inject constructor() {
     companion object {
         private val TAG = logTag("Gateway", "AccessCheck")
         private val ROOT_LOCATIONS = setOf(
-            // https://github.com/d4rken/sdmaid-public/issues/413
+            // issues/413
             // Apps on some devices have 755 on parent dirs in /data/data, but children don't.
             DataArea.Type.PRIVATE_DATA,  // Everything in /data should default to root access
             DataArea.Type.DATA,  // The /oat folders are system read only

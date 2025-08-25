@@ -1,9 +1,7 @@
 package eu.darken.sdmse.common.areas
 
 import com.ohz.clean.common.dataarea.DataArea
-import eu.darken.sdmse.R
-import eu.darken.sdmse.common.ca.CaString
-import eu.darken.sdmse.common.ca.toCaString
+import com.ohz.clean.common.dataarea.DataAreaManager
 import kotlinx.coroutines.flow.first
 
 

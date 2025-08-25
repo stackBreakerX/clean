@@ -1,8 +1,8 @@
 package eu.darken.sdmse.common.device
 
+import com.ohz.clean.common.R
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-import eu.darken.sdmse.common.R
 import eu.darken.sdmse.common.ca.CaString
 import eu.darken.sdmse.common.ca.toCaString
 import eu.darken.sdmse.common.preferences.EnumPreference

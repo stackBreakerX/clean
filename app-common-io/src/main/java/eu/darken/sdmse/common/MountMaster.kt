@@ -15,8 +15,8 @@ import kotlinx.coroutines.sync.withLock
 import javax.inject.Inject
 import javax.inject.Singleton
 
-// https://github.com/d4rken/sdmaid-public/issues/5331
-// https://github.com/d4rken/sdmaid-public/issues/5201
+// issues/5331
+// issues/5201
 @Singleton
 class MountMaster @Inject constructor(
     private val rootManager: RootManager,

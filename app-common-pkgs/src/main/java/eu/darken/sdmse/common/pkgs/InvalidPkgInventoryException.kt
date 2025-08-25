@@ -1,5 +1,6 @@
 package eu.darken.sdmse.common.pkgs
 
+import com.ohz.clean.common.pkgs.R
 import eu.darken.sdmse.common.ca.toCaString
 import eu.darken.sdmse.common.error.HasLocalizedError
 import eu.darken.sdmse.common.error.LocalizedError
