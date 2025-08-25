@@ -1,4 +1,4 @@
-package com.ohz.clean.ui.coil
+package com.ohz.clean.coil
 
 import coil.ImageLoader
 import coil.decode.DataSource
@@ -6,7 +6,7 @@ import coil.fetch.FetchResult
 import coil.fetch.Fetcher
 import coil.fetch.SourceResult
 import coil.request.Options
-import com.ohz.clean.ui.common.MimeTypeTool
+import com.ohz.clean.common.MimeTypeTool
 import eu.darken.sdmse.common.files.APathLookup
 import eu.darken.sdmse.common.files.FileType
 import eu.darken.sdmse.common.files.GatewaySwitch
