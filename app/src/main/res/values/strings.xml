@@ -16,6 +16,8 @@
 
     <string name="general_thank_you_label">Thank you</string>
 
+    <string name="exclusion_create_action">Create exclusion</string>
+
     <string name="general_error_type_mismatch_msg">Type mismatch: Wanted %1$s, but got %2$s.</string>
     <string name="general_error_cant_access_msg">Can\'t access %s.</string>
     <string name="general_error_root_unavailable">Root access is unavailable.</string>

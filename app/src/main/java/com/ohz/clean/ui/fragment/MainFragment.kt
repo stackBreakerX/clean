@@ -5,7 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.ohz.clean.R
+import com.ohz.clean.common.EdgeToEdgeHelper
+import com.ohz.clean.databinding.FragmentMainBinding
+import com.ohz.clean.ui.base.Fragment3
+import dagger.hilt.android.AndroidEntryPoint
+import eu.darken.sdmse.common.viewbinding.viewBinding
+import kotlin.getValue
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,16 +24,34 @@ private const val ARG_PARAM2 = "param2"
  * Use the [MainFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class MainFragment : Fragment() {
+
+@AndroidEntryPoint
+class MainFragment : Fragment3(R.layout.fragment_main) {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+    override val ui: FragmentMainBinding by viewBinding()
+    override val vm: MainViewModel by viewModels()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        EdgeToEdgeHelper(requireActivity()).apply {
+            insetsPadding(ui.root, left = true, right = true)
+            insetsPadding(ui.root, top = true, bottom = true)
+
+//            insetsPadding(ui.list, top = true)
+//            insetsPadding(ui.mainAction, bottom = true)
         }
     }
 

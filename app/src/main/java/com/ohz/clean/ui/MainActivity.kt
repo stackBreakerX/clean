@@ -6,7 +6,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.ohz.clean.databinding.ActivityMainBinding
 import com.ohz.clean.ui.base.BaseActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
 
@@ -16,7 +18,6 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val splashScreen = installSplashScreen()
-        enableEdgeToEdge()
         splashScreen.setKeepOnScreenCondition { showSplashScreen && savedInstanceState == null }
 
         ui = ActivityMainBinding.inflate(layoutInflater)
