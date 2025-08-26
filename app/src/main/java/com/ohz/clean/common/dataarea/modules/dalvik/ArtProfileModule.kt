@@ -8,7 +8,7 @@ import dagger.Reusable
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoSet
-import eu.darken.sdmse.common.areas.hasFlags
+import com.ohz.clean.common.dataarea.hasFlags
 import com.ohz.clean.common.dataarea.modules.DataAreaModule
 import eu.darken.sdmse.common.debug.logging.Logging.Priority.INFO
 import eu.darken.sdmse.common.debug.logging.Logging.Priority.VERBOSE

@@ -1,6 +1,6 @@
 package com.ohz.clean.common.dataarea
 
-import eu.darken.sdmse.common.areas.modules.DataAreaFactory
+import com.ohz.clean.common.dataarea.modules.DataAreaFactory
 import eu.darken.sdmse.common.coroutine.AppScope
 import eu.darken.sdmse.common.debug.logging.Logging.Priority.WARN
 import eu.darken.sdmse.common.debug.logging.log

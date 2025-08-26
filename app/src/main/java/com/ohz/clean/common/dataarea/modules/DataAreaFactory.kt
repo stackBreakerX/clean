@@ -1,7 +1,6 @@
-package eu.darken.sdmse.common.areas.modules
+package com.ohz.clean.common.dataarea.modules
 
 import com.ohz.clean.common.dataarea.DataArea
-import com.ohz.clean.common.dataarea.modules.DataAreaModule
 import dagger.Reusable
 import eu.darken.sdmse.common.BuildConfigWrap
 import eu.darken.sdmse.common.BuildConfigWrap.BuildType.RELEASE

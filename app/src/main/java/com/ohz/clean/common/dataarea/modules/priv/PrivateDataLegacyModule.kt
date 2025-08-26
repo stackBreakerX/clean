@@ -2,7 +2,7 @@ package com.ohz.clean.common.dataarea.modules.priv
 
 import com.ohz.clean.common.dataarea.DataArea
 import dagger.Reusable
-import eu.darken.sdmse.common.areas.hasFlags
+import com.ohz.clean.common.dataarea.hasFlags
 import com.ohz.clean.common.dataarea.modules.DataAreaModule
 import eu.darken.sdmse.common.debug.logging.Logging.Priority.*
 import eu.darken.sdmse.common.debug.logging.log

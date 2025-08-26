@@ -47,11 +47,8 @@ class MainFragment : Fragment3(R.layout.fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         EdgeToEdgeHelper(requireActivity()).apply {
-            insetsPadding(ui.root, left = true, right = true)
-            insetsPadding(ui.root, top = true, bottom = true)
+            insetsPadding(ui.root, left = true, right = true, bottom = true, top = true)
 
-//            insetsPadding(ui.list, top = true)
-//            insetsPadding(ui.mainAction, bottom = true)
         }
     }
 

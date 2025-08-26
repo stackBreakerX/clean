@@ -1,7 +1,5 @@
-package eu.darken.sdmse.common.areas
+package com.ohz.clean.common.dataarea
 
-import com.ohz.clean.common.dataarea.DataArea
-import com.ohz.clean.common.dataarea.DataAreaManager
 import kotlinx.coroutines.flow.first
 
 
