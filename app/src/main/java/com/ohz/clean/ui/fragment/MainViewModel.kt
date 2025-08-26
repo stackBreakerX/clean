@@ -16,7 +16,6 @@ class MainViewModel @Inject constructor(
     @Suppress("unused") private val handle: SavedStateHandle,
     dispatcherProvider: DispatcherProvider,
     private val analyzer: Analyzer,
-
     ) :
     ViewModel3(dispatcherProvider) {
 }
