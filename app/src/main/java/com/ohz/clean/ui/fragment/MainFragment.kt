@@ -1,6 +1,7 @@
 package com.ohz.clean.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +15,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import eu.darken.sdmse.common.viewbinding.viewBinding
 import kotlin.getValue
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -34,8 +34,6 @@ class MainFragment : Fragment3(R.layout.fragment_main) {
     override val ui: FragmentMainBinding by viewBinding()
     override val vm: MainViewModel by viewModels()
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -48,7 +46,10 @@ class MainFragment : Fragment3(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
         EdgeToEdgeHelper(requireActivity()).apply {
             insetsPadding(ui.root, left = true, right = true, bottom = true, top = true)
+        }
 
+        vm.state.observe2(ui) { state ->
+            Log.d(tag, "onViewCreated() called with: state = $state")
         }
     }
 

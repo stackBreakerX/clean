@@ -18,6 +18,11 @@
         <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
 
+    <style name="BaseCardItem" parent="Widget.Material3.CardView.Elevated">
+        <item name="android:layout_marginVertical">8dp</item>
+        <item name="android:layout_marginHorizontal">8dp</item>
+    </style>
+
     <style name="BaseAppTheme" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>

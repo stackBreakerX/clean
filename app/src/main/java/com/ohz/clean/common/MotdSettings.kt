@@ -1,0 +1,31 @@
+package com.ohz.clean.common
+
+import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import com.squareup.moshi.Moshi
+import dagger.hilt.android.qualifiers.ApplicationContext
+import eu.darken.sdmse.common.datastore.createValue
+import eu.darken.sdmse.common.debug.logging.logTag
+import java.util.UUID
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+class MotdSettings @Inject constructor(
+    @param:ApplicationContext private val context: Context,
+) {
+
+    private val Context.dataStore by preferencesDataStore(name = "settings_motd")
+
+    private val dataStore: DataStore<Preferences>
+        get() = context.dataStore
+
+    val isMotdEnabled = dataStore.createValue("motd.enabled", true)
+
+
+    companion object {
+        internal val TAG = logTag("Motd", "Settings")
+    }
+}
