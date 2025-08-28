@@ -1,0 +1,67 @@
+package com.ohz.clean.common
+
+import eu.darken.sdmse.common.ca.CaString
+import eu.darken.sdmse.common.ca.toCaString
+import eu.darken.sdmse.common.pkgs.features.InstallId
+import eu.darken.sdmse.common.pkgs.features.Installed
+import eu.darken.sdmse.common.user.UserProfile2
+import kotlin.collections.all
+import kotlin.collections.flatten
+import kotlin.collections.isNullOrEmpty
+import kotlin.collections.sumOf
+import kotlin.let
+import kotlin.run
+
+data class AppJunk(
+    val pkg: Installed,
+    val userProfile: UserProfile2?,
+    val expendables: Map<ExpendablesFilterIdentifier, Collection<ExpendablesFilter.Match>>?,
+    val inaccessibleCache: InaccessibleCache?,
+    val acsError: Exception? = null,
+) {
+
+    val identifier: InstallId
+        get() = pkg.installId
+
+    val label: CaString
+        get() = pkg.label ?: pkg.packageName.toCaString()
+
+    val itemCount by lazy {
+        var count = 0
+        count += expendables?.values?.sumOf { it.size } ?: 0
+        inaccessibleCache?.let { count += it.itemCount }
+        count
+    }
+
+    val size by lazy {
+        val knownFiles = expendables?.values?.flatten()?.sumOf { it.expectedGain } ?: 0L
+        val inaccessibleSize = inaccessibleCache?.run {
+            val publicCacheSize = expendables
+                ?.get(DefaultCachesPublicFilter::class)
+                ?.sumOf { it.expectedGain }
+            when {
+                publicCacheSize == null -> {
+                    // No extra info about public caches
+                    totalSize
+                }
+
+                publicSize != null -> {
+                    // The system has seperate info for pub/priv caches
+                    privateSize
+                }
+
+                else -> {
+                    // Assume system info includes pub caches
+                    totalSize - publicCacheSize
+                }
+            }
+        } ?: 0L
+        knownFiles + inaccessibleSize
+    }
+
+    fun isEmpty() =
+        (expendables.isNullOrEmpty() || expendables.values.all { it.isEmpty() }) && inaccessibleCache == null
+
+    override fun toString(): String =
+        "AppJunk(${pkg.packageName}, categories=${expendables?.size}, inaccessible=$inaccessibleCache)"
+}

@@ -42,6 +42,7 @@ class MainViewModel @Inject constructor(
             .filter { it.storages.isEmpty() }
             .onEach { analyzer.submit(DeviceStorageScanTask()) }
             .launchInViewModel()
+
     }
 
     val state = combine(

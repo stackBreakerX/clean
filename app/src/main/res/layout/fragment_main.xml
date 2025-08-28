@@ -18,104 +18,75 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp"
             tools:layout_height="400dp">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/Title"
+                style="@style/TextAppearance.Material3.DisplayLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textStyle="bold"
+                android:textSize="30sp"
+                android:layout_marginTop="16dp"
+                android:text="Cleaner"
+                />
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:id="@+id/progress"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginVertical="16dp"
-                android:layout_marginStart="16dp"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:progress="73"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="100dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:trackThickness="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Title"
+                app:trackThickness="5dp"
+                app:layout_constraintDimensionRatio="1:1"
                 />
 
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/graph_caption"
-                style="@style/TextAppearance.Material3.LabelSmall"
+                style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="8sp"
+                android:textStyle="bold"
+                android:textSize="30sp"
                 app:layout_constraintBottom_toBottomOf="@id/progress"
                 app:layout_constraintEnd_toEndOf="@id/progress"
                 app:layout_constraintStart_toStartOf="@id/progress"
                 app:layout_constraintTop_toTopOf="@id/progress"
                 tools:text="76%" />
 
-            <ImageView
-                android:id="@+id/hardware_icon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_margin="16dp"
-                android:src="@drawable/ic_chip_24"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/primary"
-                style="@style/TextAppearance.Material3.TitleSmall"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
-                android:ellipsize="end"
-                android:singleLine="true"
-                app:layout_constraintBottom_toTopOf="@id/identifier"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/progress"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0"
-                app:layout_constraintVertical_chainStyle="packed"
-                tools:text="Primary storage" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/identifier"
-                style="@style/TextAppearance.Material3.LabelSmall"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:textIsSelectable="true"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@id/secondary"
-                app:layout_constraintEnd_toEndOf="@id/primary"
-                app:layout_constraintStart_toStartOf="@id/primary"
-                app:layout_constraintTop_toBottomOf="@id/primary"
-                tools:text="8765-4321"
-                tools:visibility="visible" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/secondary"
-                style="@style/TextAppearance.Material3.BodySmall"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="4dp"
-                app:layout_constraintBottom_toTopOf="@id/tertiary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/progress"
-                app:layout_constraintTop_toBottomOf="@id/identifier"
-                app:layout_goneMarginBottom="16dp"
-                tools:text="Your primary storage, e.g. the device's build in storage chip." />
-
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tertiary"
                 style="@style/TextAppearance.Material3.BodyMedium"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="16dp"
                 android:textColor="?colorError"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/available"
-                app:layout_constraintEnd_toEndOf="@id/secondary"
-                app:layout_constraintStart_toStartOf="@id/secondary"
-                app:layout_constraintTop_toBottomOf="@id/secondary"
-                tools:text="@string/analyzer_storage_content_type_app_setup_incomplete_hint" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/progress"
+                android:text="@string/analyzer_storage_content_type_app_setup_incomplete_hint" />
+
+            <ImageView
+                android:id="@+id/hardware_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/ic_chip_24"
+                app:layout_constraintTop_toBottomOf="@+id/tertiary"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/available"
@@ -123,14 +94,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/capacity"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintStart_toEndOf="@id/progress"
-                app:layout_constraintVertical_bias="1.0"
+                app:layout_constraintBottom_toBottomOf="@+id/hardware_icon"
+                app:layout_constraintTop_toTopOf="@+id/hardware_icon"
+                app:layout_constraintStart_toEndOf="@id/hardware_icon"
                 tools:text="13.59 GB available" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -141,7 +108,6 @@
                 android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="@id/available"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/available"
                 app:layout_constraintTop_toTopOf="@id/available"
                 tools:text="111.11 / 121.89 GB" />
 
