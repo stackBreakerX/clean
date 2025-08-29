@@ -4,7 +4,8 @@
     <style name="Theme.CleanMaster"
         parent="android:Theme.Material.Light.NoActionBar" />
 
-    <style name="AppTheme" parent="BaseAppTheme">
+    <style name="AppTheme"
+        parent="BaseAppTheme">
         <item name="windowActionModeOverlay">true</item>
         <item name="actionModeCloseDrawable">@drawable/ic_baseline_close_24</item>
         <item name="android:statusBarColor">?colorSurface</item>
@@ -12,27 +13,55 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
-    <style name="AppThemeSplash" parent="Theme.SplashScreen">
+    <style name="AppThemeSplash"
+        parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/md_theme_surfaceContainer</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/splash_screen</item>
         <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
 
-    <style name="BaseCardItem" parent="Widget.Material3.CardView.Elevated">
+    <style name="SDMButton.Icon.Filled"
+        parent="Widget.Material3.Button.IconButton.Filled">
+        <item name="backgroundTint">@color/sdm_button_bg_tint</item>
+    </style>
+
+    <style name="SDMButton.Text" parent="Widget.Material3.Button.TextButton"/>
+
+    <style name="SDMButton.Icon.Outlined" parent="Widget.Material3.Button.IconButton.Outlined"/>
+
+
+    <style name="DashboardCardButton.Outlined" parent="SDMButton.Icon.Outlined">
+        <item name="android:paddingHorizontal">20dp</item>
+        <item name="iconPadding">4dp</item>
+    </style>
+
+    <style name="DashboardCardButton.Filled"
+        parent="SDMButton.Icon.Filled">
+        <item name="android:paddingHorizontal">20dp</item>
+        <item name="iconPadding">4dp</item>
+    </style>
+
+    <style name="BaseCardItem"
+        parent="Widget.Material3.CardView.Elevated">
         <item name="android:layout_marginVertical">8dp</item>
         <item name="android:layout_marginHorizontal">8dp</item>
     </style>
 
-    <style name="SDMAppBar" parent="Widget.Material3.AppBarLayout">
+    <style name="SDMAppBar"
+        parent="Widget.Material3.AppBarLayout">
 
     </style>
+
+    <style name="SDMButton.Icon"
+        parent="Widget.Material3.Button.IconButton" />
 
 
     <style name="BaseScreen">
         <item name="android:background">?attr/colorSurface</item>
     </style>
 
-    <style name="BaseAppTheme" parent="Theme.Material3.Light.NoActionBar">
+    <style name="BaseAppTheme"
+        parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
@@ -80,6 +109,8 @@
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
 
-        <item name="dynamicColorThemeOverlay">@style/Theme.Material3.DynamicColors.Light.NoActionBar</item>
+        <item name="dynamicColorThemeOverlay">
+            @style/Theme.Material3.DynamicColors.Light.NoActionBar
+        </item>
     </style>
 </resources>

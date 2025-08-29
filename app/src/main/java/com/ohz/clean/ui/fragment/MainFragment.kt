@@ -6,15 +6,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import com.ohz.clean.MainDirections
 import com.ohz.clean.R
 import com.ohz.clean.common.EdgeToEdgeHelper
+import com.ohz.clean.common.navigation.getSpanCount
 import com.ohz.clean.databinding.FragmentMainBinding
 import com.ohz.clean.ui.base.Fragment3
+import com.ohz.clean.ui.base.adapter.setupDefaults
 import com.ohz.clean.utils.StorageUtil
 import dagger.hilt.android.AndroidEntryPoint
+import eu.darken.sdmse.common.getSpanCount
 import eu.darken.sdmse.common.viewbinding.viewBinding
+import javax.inject.Inject
 import kotlin.getValue
 
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,6 +40,8 @@ class MainFragment : Fragment3(R.layout.fragment_main) {
 
     override val ui: FragmentMainBinding by viewBinding()
     override val vm: MainViewModel by viewModels()
+
+    @Inject lateinit var dashAdapter: DashboardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +76,19 @@ class MainFragment : Fragment3(R.layout.fragment_main) {
 
         vm.state.observe2(ui) { state ->
             Log.d(tag, "onViewCreated() called with: state = $state")
+        }
+
+        ui.list.setupDefaults(
+            dashAdapter,
+            verticalDividers = false,
+            fastscroll = false,
+            layouter = GridLayoutManager(kotlin.context, getSpanCount(), GridLayoutManager.VERTICAL, false)
+        )
+
+        vm.listState.observe2(ui) { state ->
+            mascotOverlay.isVisible = state.items.isEmpty() || state.isEasterEgg
+            list.isVisible = state.items.isNotEmpty()
+            dashAdapter.update(state.items)
         }
     }
 
