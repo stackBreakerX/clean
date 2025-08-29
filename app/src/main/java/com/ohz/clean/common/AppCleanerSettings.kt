@@ -17,7 +17,6 @@ import javax.inject.Singleton
 @Singleton
 class AppCleanerSettings @Inject constructor(
     @param:ApplicationContext private val context: Context,
-    moshi: Moshi,
     generalSettings: GeneralSettings,
 ) : PreferenceScreenData {
 

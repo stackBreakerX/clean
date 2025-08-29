@@ -1,53 +1,54 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BaseScreen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ohz.clean.ui.fragment.MainFragment"
     >
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/layoutStorage"
-        style="@style/BaseCardItem"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarlayout"
+        style="@style/SDMAppBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?selectableItemBackground">
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="16dp"
-            tools:layout_height="400dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_height="400dp"
+            >
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/Title"
                 style="@style/TextAppearance.Material3.DisplayLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:textStyle="bold"
-                android:textSize="30sp"
                 android:layout_marginTop="16dp"
                 android:text="Cleaner"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 />
 
             <com.google.android.material.progressindicator.CircularProgressIndicator
                 android:id="@+id/progress"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:progress="73"
-                android:layout_marginTop="20dp"
                 android:layout_marginHorizontal="100dp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:progress="73"
+                app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/Title"
                 app:trackThickness="5dp"
-                app:layout_constraintDimensionRatio="1:1"
                 />
 
 
@@ -56,13 +57,14 @@
                 style="@style/TextAppearance.Material3.BodyLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:textSize="30sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@id/progress"
                 app:layout_constraintEnd_toEndOf="@id/progress"
                 app:layout_constraintStart_toStartOf="@id/progress"
                 app:layout_constraintTop_toTopOf="@id/progress"
-                tools:text="76%" />
+                tools:text="76%"
+                />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tertiary"
@@ -71,12 +73,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="16dp"
+                android:text="@string/analyzer_storage_content_type_app_setup_incomplete_hint"
                 android:textColor="?colorError"
                 android:textStyle="bold"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/progress"
-                android:text="@string/analyzer_storage_content_type_app_setup_incomplete_hint" />
+                />
 
             <ImageView
                 android:id="@+id/hardware_icon"
@@ -85,8 +89,9 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="30dp"
                 android:src="@drawable/ic_chip_24"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tertiary"
-                app:layout_constraintStart_toStartOf="parent" />
+                />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/available"
@@ -96,9 +101,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="@+id/hardware_icon"
-                app:layout_constraintTop_toTopOf="@+id/hardware_icon"
                 app:layout_constraintStart_toEndOf="@id/hardware_icon"
-                tools:text="13.59 GB available" />
+                app:layout_constraintTop_toTopOf="@+id/hardware_icon"
+                tools:text="13.59 GB available"
+                />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/capacity"
@@ -109,10 +115,27 @@
                 app:layout_constraintBottom_toBottomOf="@id/available"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/available"
-                tools:text="111.11 / 121.89 GB" />
+                tools:text="111.11 / 121.89 GB"
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.appbar.AppBarLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:contentDescription="Dashboard"
+        android:paddingHorizontal="8dp"
+        android:paddingBottom="128dp"
+        android:visibility="invisible"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:ignore="HardcodedText"
+        tools:itemCount="1"
+        tools:visibility="visible"
+        />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

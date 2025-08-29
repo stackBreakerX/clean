@@ -123,19 +123,20 @@ class PostProcessorModule @Inject constructor(
 
 //        val exclusions = exclusionManager.pathExclusions(SDMTool.Type.APPCLEANER)
 
-        var after = before.copy(
-            expendables = before.expendables.mapValues { (_, paths) ->
-                exclusions.excludeNestedLookups(paths)
-            }
-        )
-
-        after = after.copy(
-            expendables = after.expendables?.mapValues { (type, paths) ->
-                val edges = edgeCaseMap[type] ?: emptySet()
-                if (edges.isNotEmpty()) log(TAG, VERBOSE) { "Re-adding edge cases: $edges" }
-                (paths + edges).toSet()
-            }
-        )
+//        var after = before.copy(
+//            expendables = before.expendables.mapValues { (_, paths) ->
+//                exclusions.excludeNestedLookups(paths)
+//            }
+//        )
+//
+//        after = before.copy(
+//            expendables = after.expendables?.mapValues { (type, paths) ->
+//                val edges = edgeCaseMap[type] ?: emptySet()
+//                if (edges.isNotEmpty()) log(TAG, VERBOSE) { "Re-adding edge cases: $edges" }
+//                (paths + edges).toSet()
+//            }
+//        )
+        var after = before
 
         if (before.itemCount != after.itemCount) {
             log(TAG) { "Before checking exclusions: $before" }

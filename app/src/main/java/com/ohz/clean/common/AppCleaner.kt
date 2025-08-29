@@ -69,7 +69,6 @@ class AppCleaner @Inject constructor(
     @param:AppScope private val appScope: CoroutineScope,
     private val fileForensics: FileForensics,
     private val appScannerProvider: Provider<AppScanner>,
-    private val inaccessibleDeleterProvider: Provider<InaccessibleDeleter>,
     private val gatewaySwitch: GatewaySwitch,
     private val pkgOps: PkgOps,
     usageStatsSetupModule: UsageStatsSetupModule,
@@ -268,8 +267,8 @@ class AppCleaner @Inject constructor(
             emptyMap()
         }
 
-
-        val acsResult = if (task.includeInaccessible) {
+//        val acsResult: InaccessibleDeleter.InaccDelResult? = null
+        /*val acsResult = if (task.includeInaccessible) {
             inaccessibleDeleterProvider.get().withProgress(
                 this,
                 onCompletion = { it }
@@ -281,7 +280,7 @@ class AppCleaner @Inject constructor(
                     isBackground = task.isBackground
                 )
             }
-        } else null
+        } else null*/
 
         updateProgressPrimary(R.string.general_progress_filtering)
         updateProgressSecondary(CaString.EMPTY)
@@ -296,10 +295,10 @@ class AppCleaner @Inject constructor(
                 val deletedInaccessible = mutableSetOf<ExpendablesFilter.Match>()
 
                 val updatedExpendables = appJunk.expendables?.mapValues { (type, matches) ->
-                    if (type == DefaultCachesPublicFilter::class && acsResult?.succesful?.contains(appJunk.identifier) == true) {
-                        // It's inaccessible caches were deleted, this included the default public caches
-                        return@mapValues emptySet<ExpendablesFilter.Match>()
-                    }
+//                    if (type == DefaultCachesPublicFilter::class && acsResult?.succesful?.contains(appJunk.identifier) == true) {
+//                        // It's inaccessible caches were deleted, this included the default public caches
+//                        return@mapValues emptySet<ExpendablesFilter.Match>()
+//                    }
 
                     matches.filter { match ->
                         val isDeleted = accessibleDeletionMap.getOrDefault(appJunk.identifier,
@@ -319,11 +318,11 @@ class AppCleaner @Inject constructor(
                 }?.filterValues { it.isNotEmpty() }
 
                 val updatedInaccessible = appJunk.inaccessibleCache?.let { inacc ->
-                    if (acsResult?.succesful?.contains(appJunk.identifier) == true) {
-                        // Inaccessible were deleted, `expendables` should have been updated correctly by above code
-                        deleted.addAll(inacc.theoreticalPaths)
-                        return@let null
-                    }
+//                    if (acsResult?.succesful?.contains(appJunk.identifier) == true) {
+//                        // Inaccessible were deleted, `expendables` should have been updated correctly by above code
+//                        deleted.addAll(inacc.theoreticalPaths)
+//                        return@let null
+//                    }
 
                     val deletedSize = deletedInaccessible.sumOf { it.expectedGain }
                     inacc.copy(
@@ -336,18 +335,17 @@ class AppCleaner @Inject constructor(
                 appJunk.copy(
                     expendables = updatedExpendables,
                     inaccessibleCache = updatedInaccessible,
-                    acsError = acsResult?.failed?.get(appJunk.identifier),
                 )
             }.filter { !it.isEmpty() }
         )
 
         // Force check via !! because we should not have ran automation for any junk without inaccessible data
-        val automationSize = acsResult?.succesful
-            ?.map { inaccessible -> snapshot.junks.single { it.identifier == inaccessible }.inaccessibleCache!! }
-            ?.sumOf { it.totalSize }
-            ?: 0L
+//        val automationSize = acsResult?.succesful
+//            ?.map { inaccessible -> snapshot.junks.single { it.identifier == inaccessible }.inaccessibleCache!! }
+//            ?.sumOf {  it.totalSize }
+//            ?: 0L
         return AppCleanerProcessingTask.Success(
-            affectedSpace = accessibleDeletionMap.values.sumOf { contents -> contents.sumOf { it.expectedGain } } + automationSize,
+            affectedSpace = accessibleDeletionMap.values.sumOf { contents -> contents.sumOf { it.expectedGain } } ,
             affectedPaths = deleted,
         )
     }
