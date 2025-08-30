@@ -118,30 +118,30 @@ class AppCleaner @Inject constructor(
                 when (task) {
                     is AppCleanerScanTask -> performScan(task)
                     is AppCleanerProcessingTask -> performProcessing(task)
-//                    is AppCleanerSchedulerTask -> {
-//                        performScan()
-//                        performProcessing(
-//                            AppCleanerProcessingTask(
-//                                useAutomation = task.useAutomation,
-//                                isBackground = true,
-//                            )
-//                        ).let {
-//                            AppCleanerSchedulerTask.Success(
-//                                affectedSpace = it.affectedSpace,
-//                                affectedPaths = it.affectedPaths,
-//                            )
-//                        }
-//                    }
+                    is AppCleanerSchedulerTask -> {
+                        performScan()
+                        performProcessing(
+                            AppCleanerProcessingTask(
+                                useAutomation = task.useAutomation,
+                                isBackground = true,
+                            )
+                        ).let {
+                            AppCleanerSchedulerTask.Success(
+                                affectedSpace = it.affectedSpace,
+                                affectedPaths = it.affectedPaths,
+                            )
+                        }
+                    }
 //
-//                    is AppCleanerOneClickTask -> {
-//                        performScan()
-//                        performProcessing().let {
-//                            AppCleanerOneClickTask.Success(
-//                                affectedSpace = it.affectedSpace,
-//                                affectedPaths = it.affectedPaths,
-//                            )
-//                        }
-//                    }
+                    is AppCleanerOneClickTask -> {
+                        performScan()
+                        performProcessing().let {
+                            AppCleanerOneClickTask.Success(
+                                affectedSpace = it.affectedSpace,
+                                affectedPaths = it.affectedPaths,
+                            )
+                        }
+                    }
                 }
             }
             log(TAG, INFO) { "submit() finished: $result" }
