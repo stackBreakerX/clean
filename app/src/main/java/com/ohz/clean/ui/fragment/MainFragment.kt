@@ -15,6 +15,7 @@ import com.ohz.clean.common.EdgeToEdgeHelper
 import com.ohz.clean.common.navigation.getSpanCount
 import com.ohz.clean.databinding.FragmentMainBinding
 import com.ohz.clean.ui.base.Fragment3
+import com.ohz.clean.ui.base.adapter.differ.update
 import com.ohz.clean.ui.base.adapter.setupDefaults
 import com.ohz.clean.utils.StorageUtil
 import dagger.hilt.android.AndroidEntryPoint
@@ -82,11 +83,11 @@ class MainFragment : Fragment3(R.layout.fragment_main) {
             dashAdapter,
             verticalDividers = false,
             fastscroll = false,
-            layouter = GridLayoutManager(kotlin.context, getSpanCount(), GridLayoutManager.VERTICAL, false)
+            layouter = GridLayoutManager(context, getSpanCount(), GridLayoutManager.VERTICAL, false)
         )
 
         vm.listState.observe2(ui) { state ->
-            mascotOverlay.isVisible = state.items.isEmpty() || state.isEasterEgg
+//            mascotOverlay.isVisible = state.items.isEmpty() || state.isEasterEgg
             list.isVisible = state.items.isNotEmpty()
             dashAdapter.update(state.items)
         }

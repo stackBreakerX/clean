@@ -19,6 +19,21 @@ import kotlinx.coroutines.flow.Flow
 //}
 
 @Suppress("UNCHECKED_CAST", "LongParameterList")
+inline fun <T1, T2, R> combine(
+    flow: Flow<T1>,
+    flow2: Flow<T2>,
+    crossinline transform: suspend (T1, T2) -> R
+): Flow<R> = kotlinx.coroutines.flow.combine(
+    flow,
+    flow2,
+) { args: Array<*> ->
+    transform(
+        args[0] as T1,
+        args[1] as T2,
+    )
+}
+
+@Suppress("UNCHECKED_CAST", "LongParameterList")
 inline fun <T1, T2, T3, R> combine(
     flow: Flow<T1>,
     flow2: Flow<T2>,

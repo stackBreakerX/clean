@@ -1,5 +1,6 @@
 package com.ohz.clean.ui.fragment
 
+import android.system.SystemCleaner
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.asLiveData
 import com.ohz.clean.MainDirections
@@ -23,7 +24,6 @@ import com.ohz.clean.common.DeviceStorage
 import com.ohz.clean.common.DeviceStorageScanTask
 import com.ohz.clean.common.SDMTool
 import com.ohz.clean.common.SetupManager
-import com.ohz.clean.common.SystemCleaner
 import com.ohz.clean.common.SystemCleanerOneClickTask
 import com.ohz.clean.common.SystemCleanerProcessingTask
 import com.ohz.clean.common.SystemCleanerScanTask
@@ -46,7 +46,9 @@ import eu.darken.sdmse.common.debug.logging.log
 import eu.darken.sdmse.common.flow.intervalFlow
 import eu.darken.sdmse.common.flow.replayingShare
 import eu.darken.sdmse.common.flow.throttleLatest
+import eu.darken.sdmse.common.rngString
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
@@ -74,9 +76,9 @@ class MainViewModel @Inject constructor(
     private val appCleaner: AppCleaner,
     private val corpseFinder: CorpseFinder,
     private val taskManager: TaskManager,
-    private val systemCleaner: SystemCleaner,
+//    private val systemCleaner: SystemCleaner,
 
-    ) :
+) :
     ViewModel3(dispatcherProvider) {
 
     private val TAG = "MainViewModel"
@@ -100,11 +102,21 @@ class MainViewModel @Inject constructor(
         data
     }.asLiveData2()
 
-    private val setupCardItem: Flow<SetupManager.State?> = setupManager.state
+    private val setupCardItem: Flow<SetupCardVH.Item?> = setupManager.state
         .flatMapLatest { setupState ->
             if (setupState.isDone || setupState.isDismissed) return@flatMapLatest flowOf(null)
 
-            if (setupState.isIncomplete) return@flatMapLatest flowOf(setupState)
+            val item = SetupCardVH.Item(
+                setupState = setupState,
+                onDismiss = {
+                    events.postValue(DashboardEvents.SetupDismissHint)
+                },
+                onContinue = {
+//                    MainDirections.goToSetup().navigate()
+                }
+            )
+
+            if (setupState.isIncomplete) return@flatMapLatest flowOf(item)
 
             if (!setupState.isLoading) return@flatMapLatest flowOf(null)
 
@@ -112,7 +124,7 @@ class MainViewModel @Inject constructor(
                 val now = Instant.now()
                 val loadingStart = setupState.startedLoadingAt ?: now
                 if (Duration.between(loadingStart, now) >= Duration.ofSeconds(5)) {
-                    setupState
+                    item
                 } else {
                     null
                 }
@@ -147,39 +159,39 @@ class MainViewModel @Inject constructor(
             },
             onViewTool = { showCorpseFinder() },
             onViewDetails = {
-                DashboardFragmentDirections.actionDashboardFragmentToCorpseFinderDetailsFragment()
-                    .navigate()
+//                DashboardFragmentDirections.actionDashboardFragmentToCorpseFinderDetailsFragment()
+//                    .navigate()
             },
         )
     }
 
-    private val systemCleanerItem: Flow<DashboardToolCard.Item> = combine(
-        (systemCleaner.state as Flow<SystemCleaner.State?>).onStart { emit(null) },
-        taskManager.state.map { it.getLatestResult(SDMTool.Type.SYSTEMCLEANER) },
-    ) { state, lastResult ->
-        DashboardToolCard.Item(
-            toolType = SDMTool.Type.SYSTEMCLEANER,
-            isInitializing = state == null,
-            result = lastResult,
-            progress = state?.progress,
-            showProRequirement = false,
-            onScan = {
-                launch { submitTask(SystemCleanerScanTask()) }
-            },
-            onDelete = {
-                val task = SystemCleanerProcessingTask()
-                events.postValue(DashboardEvents.SystemCleanerDeleteConfirmation(task))
-            }.takeIf { state?.data?.hasData == true },
-            onCancel = {
-                launch { taskManager.cancel(SDMTool.Type.SYSTEMCLEANER) }
-            },
-            onViewTool = { showSystemCleaner() },
-            onViewDetails = {
-                DashboardFragmentDirections.actionDashboardFragmentToSystemCleanerDetailsFragment()
-                    .navigate()
-            },
-        )
-    }
+//    private val systemCleanerItem: Flow<DashboardToolCard.Item> = combine(
+//        (systemCleaner.state as Flow<SystemCleaner.State?>).onStart { emit(null) },
+//        taskManager.state.map { it.getLatestResult(SDMTool.Type.SYSTEMCLEANER) },
+//    ) { state, lastResult ->
+//        DashboardToolCard.Item(
+//            toolType = SDMTool.Type.SYSTEMCLEANER,
+//            isInitializing = state == null,
+//            result = lastResult,
+//            progress = state?.progress,
+//            showProRequirement = false,
+//            onScan = {
+//                launch { submitTask(SystemCleanerScanTask()) }
+//            },
+//            onDelete = {
+//                val task = SystemCleanerProcessingTask()
+//                events.postValue(DashboardEvents.SystemCleanerDeleteConfirmation(task))
+//            }.takeIf { state?.data?.hasData == true },
+//            onCancel = {
+//                launch { taskManager.cancel(SDMTool.Type.SYSTEMCLEANER) }
+//            },
+//            onViewTool = { showSystemCleaner() },
+//            onViewDetails = {
+//                DashboardFragmentDirections.actionDashboardFragmentToSystemCleanerDetailsFragment()
+//                    .navigate()
+//            },
+//        )
+//    }
 
     private val appCleanerItem: Flow<DashboardToolCard.Item> = combine(
         (appCleaner.state as Flow<AppCleaner.State?>).onStart { emit(null) },
@@ -201,10 +213,12 @@ class MainViewModel @Inject constructor(
             onCancel = {
                 launch { taskManager.cancel(SDMTool.Type.APPCLEANER) }
             },
-            onViewTool = { showAppCleaner() },
+            onViewTool = {
+//                showAppCleaner()
+                         },
             onViewDetails = {
-                DashboardFragmentDirections.actionDashboardFragmentToAppCleanerDetailsFragment()
-                    .navigate()
+//                DashboardFragmentDirections.actionDashboardFragmentToAppCleanerDetailsFragment()
+//                    .navigate()
             },
         )
     }
@@ -242,45 +256,35 @@ class MainViewModel @Inject constructor(
 //        )
 //    }
 
+    private val refreshTrigger = MutableStateFlow(rngString)
+
+
     private val listStateInternal: Flow<ListState> = eu.darken.sdmse.common.flow.combine(
         setupCardItem,
         corpseFinderItem,
-        systemCleanerItem,
         appCleanerItem,
-//        deduplicatorItem,
-    ) {
-        setupItem: SetupCardVH.Item?,
-        corpseFinderItem: DashboardToolCard.Item?,
-        systemCleanerItem: DashboardToolCard.Item?,
-        appCleanerItem: DashboardToolCard.Item?,
-//        deduplicatorItem: DashboardToolCard.Item?,
+        refreshTrigger,
+
+        ) { setupItem: SetupCardVH.Item?,
+        corpseFinderItem1: DashboardToolCard.Item?,
+        appCleanerItem1: DashboardToolCard.Item?,
         _ ->
+
         val items = mutableListOf<DashboardAdapter.Item>()
-
-
-        val anyInitializing = setOfNotNull(
-            corpseFinderItem?.isInitializing,
-            systemCleanerItem?.isInitializing,
-            appCleanerItem?.isInitializing,
-//            deduplicatorItem?.isInitializing,
-        ).any { it }
-
 
         setupItem?.let { items.add(it) }
 
-        corpseFinderItem?.let { items.add(it) }
-        systemCleanerItem?.let { items.add(it) }
-        appCleanerItem?.let { items.add(it) }
+        corpseFinderItem1?.let { items.add(it) }
+//        systemCleanerItem?.let { items.add(it) }
+        appCleanerItem1?.let { items.add(it) }
 //        deduplicatorItem?.let { items.add(it) }
 
 
-        val listState = ListState(
+        ListState(
             items = items,
             isEasterEgg = false,
         )
-        listState
-    }
-        .throttleLatest(500)
+    }.throttleLatest(500)
         .replayingShare(vmScope)
 
     val listState = listStateInternal.asLiveData()
@@ -356,7 +360,7 @@ class MainViewModel @Inject constructor(
 
     fun showCorpseFinder() {
         log(TAG, INFO) { "showCorpseFinderDetails()" }
-        DashboardFragmentDirections.actionDashboardFragmentToCorpseFinderListFragment().navigate()
+//        DashboardFragmentDirections.actionDashboardFragmentToCorpseFinderListFragment().navigate()
     }
 
     data class ListState(
